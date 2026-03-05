@@ -1,0 +1,56 @@
+resource "helm_release" "prometheus-helm" {
+  name             = "prometheus"
+  repository       = "https://prometheus-community.github.io/helm-charts"
+  chart            = "kube-prometheus-stack"
+  version          = var.prometheus_stack_version #"81.0.0"
+  namespace        = "prometheus"
+  create_namespace = true
+  cleanup_on_fail  = true
+  recreate_pods    = true
+  replace          = true
+
+  timeout = 2000
+
+  values = [
+    yamlencode({
+      podSecurityPolicy = {
+        enabled = true
+      }
+      server = {
+        persistentVolume = {
+          enabled = true
+        }
+      }
+      grafana = {
+        service = {
+          type        = "LoadBalancer"
+          annotations = {
+            "service.beta.kubernetes.io/aws-load-balancer-scheme" = "internet-facing"
+          }
+        }
+      }
+      prometheus = {
+        service = {
+          type        = "LoadBalancer"
+          annotations = {
+            "service.beta.kubernetes.io/aws-load-balancer-scheme" = "internet-facing"
+          }
+        }
+      }
+    })
+  ]
+}
+
+data "kubernetes_service_v1" "prometheus_server" {
+  metadata {
+    name      = "prometheus-kube-prometheus-prometheus"
+    namespace = "prometheus"
+  }
+}
+
+data "kubernetes_service_v1" "grafana_server" {
+  metadata {
+    name      = "prometheus-grafana"
+    namespace = "prometheus"
+  }
+}
