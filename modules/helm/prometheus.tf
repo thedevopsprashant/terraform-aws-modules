@@ -8,9 +8,11 @@ resource "helm_release" "prometheus-helm" {
   cleanup_on_fail  = true
   recreate_pods    = true
   replace          = true
+  
+  wait = false
+  #timeout = 2000
 
-  timeout = 2000
-
+# This will also work, but it is not recommended to use "values" with "yamlencode" for complex Helm charts, as it can make the configuration less readable and harder to maintain. Instead, using "set" blocks for individual values is often more manageable and clearer.
 #   values = [
 #     yamlencode({
 #       podSecurityPolicy = {
@@ -85,3 +87,14 @@ data "kubernetes_service_v1" "grafana_server" {
     namespace = "prometheus"
   }
 }
+
+
+
+##### "dig" function error resolution, while calling this prometheus module from the root module.
+# "dig" function error.
+
+# The issue was resolved by:
+
+# Installing Helm 3.20.0 (which includes the "dig" function).
+# Updating the Terraform Helm provider to version 2.17.0.
+# Ensuring the correct Helm binary is in the PATH during the apply.

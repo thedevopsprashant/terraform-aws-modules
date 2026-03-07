@@ -9,6 +9,7 @@ resource "helm_release" "aws-load-balancer-controller" {
   recreate_pods   = true
   replace         = true
   force_update    = true
+  wait = false
 
   values = [
     yamlencode({
