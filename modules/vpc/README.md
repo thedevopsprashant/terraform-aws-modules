@@ -14,7 +14,7 @@ module "vpc" {
 } 
 ```
 
-## VPC, variables.tf
+## variables.tf
 ```yaml
 variable "vpc_cidr_block" {
   type = string
@@ -36,14 +36,16 @@ variable "cluster_name" {
 
 
 ## terraform.tfvars
-
+```yaml
 vpc_cidr_block = "10.0.0.0/16"
 public_subnet = ["10.0.1.0/24","10.0.2.0/24","10.0.3.0/24"]
 private_subnet = ["10.0.4.0/24","10.0.5.0/24","10.0.6.0/24"]
 env = "production"
 cluster_name = "my-eks"
 region = "ap-south-1"
-
+```
+---
 ### Full Realtime Usage in Project 
 Repository Name - deploy-eks-cluster-terraform
+
 Link - https://github.com/thedevopsprashant/deploy-eks-cluster-terraform.git 
