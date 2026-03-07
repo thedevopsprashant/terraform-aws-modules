@@ -46,6 +46,26 @@ env = "production"
 cluster_name = "my-eks"
 region = "ap-south-1"
 ```
+
+## outputs.tf
+```yaml
+output "vpc_id" {
+  value = module.vpc.vpc_id
+}
+
+output "public_subnets" {
+  value = module.vpc.public_subnets
+}
+
+output "private_subnets" {
+  value = module.vpc.private_subnets
+}
+
+output "alb_subnet_public" {
+  value = module.vpc.public_subnets
+}
+```
+
 ---
 ### Full Realtime Usage in Project 
 Repository Name - deploy-eks-cluster-terraform

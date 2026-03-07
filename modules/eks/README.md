@@ -1,6 +1,7 @@
 # How to use EKS module in your Code
 
-This EKS module creates EKS Cluster, Node Groups - On demand & Spot, EKS Addons, Security Group for EKS Cluster, EKS Cluster Role, NodeGroup Role, Policies and Policy Attachments, Fetches OIDC URL.
+This EKS module creates EKS Cluster, Node Groups - On demand & Spot, EKS Addons, Security Group for EKS Cluster, EKS Cluster Role, NodeGroup Role, Policies and Policy Attachments, Fetches OIDC URL. 
+Different tools/Apps like ALB Controller, Prometheus-Grafan-Stack, ArgoCD can be installed Using Helm module present in this Repo.
 
 ## main.tf
 ```yaml
@@ -135,13 +136,13 @@ output "cluster_certificate_authority_data" {
 }
 
 
-########### Security Group Outputs ###########
+########### Security Group related Outputs ###########
 output "eks_cluster_sg_id" {
   value = module.eks.eks_cluster_sg_id
 }
 
 
-######### IAM Outputs ###########
+######### IAM related Outputs ###########
 output "eks_cluster_role_arn" {
   value = module.eks.eks_cluster_role_arn
 }
