@@ -1,5 +1,7 @@
 # How to use VPC module in your Code
 
+This VPC module creates VPC, Public Subnets, Private Subnets. IGW for Public Subnets, EIP, NAT Gateway for Private Subnets. Their Respective RT and RT associations.
+
 ## main.tf
 ```yaml
 module "vpc" {
