@@ -66,18 +66,6 @@ variable "subnet_ids" {
   type = list(string)
 }
 
-# variable "security_group_ids" {
-#   type = list(string)
-# }
-
-# variable "eks_cluster_role_arn" {
-#   type = string
-# }
-
-# variable "eks_node_role_arn" {
-#   type = string
-# }
-
 
 variable "authentication_mode" {
   type = string

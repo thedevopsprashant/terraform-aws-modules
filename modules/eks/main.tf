@@ -265,59 +265,6 @@ resource "aws_iam_openid_connect_provider" "eks-oidc" { #Creating Identity Provi
   url             = data.tls_certificate.eks_certificate.url
 }
 
-# to create service account for alb controller we need kubernetes provider
-# resource "kubernetes_service_account" "alb_controller_sa" {
-#   metadata {
-#     name      = "aws-load-balancer-controller"
-#     namespace = "kube-system"
-#     annotations = {
-#       "eks.amazonaws.com/role-arn" = aws_iam_role.alb_controller_role.arn
-#     }
-#   }
-#   depends_on = [aws_eks_cluster.my_cluster, aws_eks_node_group.ondemand_nodes]
-# }
-
-# OIDC
-# data "aws_iam_policy_document" "eks_oidc_assume_role_policy" {
-#   statement {
-#     actions = ["sts:AssumeRoleWithWebIdentity"]
-#     effect  = "Allow"
-
-#     condition {
-#       test     = "StringEquals"
-#       variable = "${replace(var.oidc_provider_url, "https://", "")}:sub"
-#       values   = ["system:serviceaccount:kube-system:aws-load-balancer-controller"] # This is the service account that the ALB Ingress Controller will use. It needs to match the service account in your Kubernetes cluster.
-#     }
-
-#     principals {
-#       identifiers = [var.oidc_provider_arn]
-#       type        = "Federated"
-#     }
-#   }
-# }
-
-# resource "aws_iam_role" "eks_oidc" {
-#   assume_role_policy = data.aws_iam_policy_document.eks_oidc_assume_role_policy.json
-#   name               = "eks-oidc"
-# }
-
-# resource "aws_iam_policy" "eks-oidc-policy" {
-#   name = "test-policy"
-
-#   policy = jsonencode({
-#     Statement = [{
-#       Action = [
-#         "s3:ListAllMyBuckets",
-#         "s3:GetBucketLocation",
-#         "*"
-#       ]
-#       Effect   = "Allow"
-#       Resource = "*"
-#     }]
-#     Version = "2012-10-17"
-#   })
-# }
-
 
 
 
