@@ -114,16 +114,16 @@ resource "aws_eks_addon" "eks-addons" {
 
 ################### Security Groups #####################
 resource "aws_security_group" "eks-cluster-sg" {
-  name        = "eks-cluster-sg-${terraform.workspace}"
+  name = "eks-cluster-sg-${terraform.workspace}"
   # description = "Allow 443 from Jump Server only"
   description = "Allow 443 from anywhere"
 
   vpc_id = var.vpc_id
 
   ingress {
-    from_port       = 443
-    to_port         = 443
-    protocol        = "tcp"
+    from_port = 443
+    to_port   = 443
+    protocol  = "tcp"
     # security_groups = [aws_security_group.bastion-sg.id]
     cidr_blocks = ["0.0.0.0/0"]
   }

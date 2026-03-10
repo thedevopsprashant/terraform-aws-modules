@@ -2,14 +2,14 @@ resource "helm_release" "aws-load-balancer-controller" {
   name       = "aws-load-balancer-controller"
   repository = "https://aws.github.io/eks-charts"
   chart      = "aws-load-balancer-controller"
-  version    = var.alb_controller_version  #"1.17.0"
+  version    = var.alb_controller_version #"1.17.0"
   # timeout         = 2000
   namespace       = "kube-system"
   cleanup_on_fail = true
   recreate_pods   = true
   replace         = true
   force_update    = true
-  wait = false
+  wait            = false
 
   values = [
     yamlencode({

@@ -9,7 +9,7 @@ resource "helm_release" "argocd" {
   cleanup_on_fail = true
   recreate_pods   = true
   replace         = true
-  wait = false
+  wait            = false
 
   values = [
     yamlencode({
