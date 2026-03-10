@@ -22,6 +22,10 @@ variable "argocd_version" {
   type = string
 }
 
+variable "is_prometheus-stack_enabled" {
+  type = bool
+}
+
 variable "prometheus_stack_version" {
   type = string
 }
