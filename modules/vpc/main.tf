@@ -127,7 +127,7 @@ resource "aws_route_table" "private_rt" {
 
   route {
     cidr_block     = "0.0.0.0/0"
-    nat_gateway_id = aws_nat_gateway.nat_gateway.id
+    nat_gateway_id = aws_nat_gateway.nat_gateway[0].id
   }
 
   tags = {
@@ -141,7 +141,7 @@ resource "aws_route_table" "private_rt" {
 resource "aws_route_table_association" "private_rt_association" {
   count          = length(var.private_subnet) > 0 ? length(var.private_subnet) : 0
   subnet_id      = aws_subnet.private_subnet[count.index].id
-  route_table_id = aws_route_table.private_rt.id
+  route_table_id = aws_route_table.private_rt[0].id
 
 
   depends_on = [aws_vpc.main, aws_subnet.private_subnet]
