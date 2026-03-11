@@ -80,7 +80,7 @@ resource "aws_eip" "nat_eip" {
 
 resource "aws_nat_gateway" "nat_gateway" {
   count          = length(var.private_subnet) > 0 ? 1 : 0
-  allocation_id = aws_eip.nat_eip.id
+  allocation_id = aws_eip.nat_eip[0].id
   subnet_id     = aws_subnet.public_subnet[0].id
 
   tags = {
