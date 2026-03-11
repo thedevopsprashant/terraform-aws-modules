@@ -67,7 +67,7 @@ resource "aws_internet_gateway" "igw" {
 
 
 resource "aws_eip" "nat_eip" {
-  count          = length(var.private_subnet) > 0 ? 1 : 0
+  count  = length(var.private_subnet) > 0 ? 1 : 0
   domain = "vpc"
 
   tags = {
@@ -79,7 +79,7 @@ resource "aws_eip" "nat_eip" {
 }
 
 resource "aws_nat_gateway" "nat_gateway" {
-  count          = length(var.private_subnet) > 0 ? 1 : 0
+  count         = length(var.private_subnet) > 0 ? 1 : 0
   allocation_id = aws_eip.nat_eip[0].id
   subnet_id     = aws_subnet.public_subnet[0].id
 
@@ -122,7 +122,7 @@ resource "aws_route_table_association" "public_rt_association" {
 
 
 resource "aws_route_table" "private_rt" {
-  count          = length(var.private_subnet) > 0 ? 1 : 0
+  count  = length(var.private_subnet) > 0 ? 1 : 0
   vpc_id = aws_vpc.main.id
 
   route {
