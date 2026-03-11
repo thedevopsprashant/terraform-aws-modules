@@ -8,10 +8,12 @@ variable "vpc_cidr_block" {
 
 variable "public_subnet" {
   type = list(string)
+  default     = []
 }
 
 variable "private_subnet" {
   type = list(string)
+  default     = []
 }
 
 variable "cluster_name" {

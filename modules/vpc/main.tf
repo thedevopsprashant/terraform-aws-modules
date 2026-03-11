@@ -67,6 +67,7 @@ resource "aws_internet_gateway" "igw" {
 
 
 resource "aws_eip" "nat_eip" {
+  count          = length(var.private_subnet) > 0 ? 1 : 0
   domain = "vpc"
 
   tags = {
@@ -78,6 +79,7 @@ resource "aws_eip" "nat_eip" {
 }
 
 resource "aws_nat_gateway" "nat_gateway" {
+  count          = length(var.private_subnet) > 0 ? 1 : 0
   allocation_id = aws_eip.nat_eip.id
   subnet_id     = aws_subnet.public_subnet[0].id
 
@@ -85,7 +87,7 @@ resource "aws_nat_gateway" "nat_gateway" {
     Name = "nat_gw-${var.env}-${terraform.workspace}"
   }
 
-  depends_on = [aws_vpc.main, aws_eip.nat_eip, aws_subnet.private_subnet]
+  depends_on = [aws_vpc.main]
 }
 
 
@@ -120,6 +122,7 @@ resource "aws_route_table_association" "public_rt_association" {
 
 
 resource "aws_route_table" "private_rt" {
+  count          = length(var.private_subnet) > 0 ? 1 : 0
   vpc_id = aws_vpc.main.id
 
   route {
@@ -136,7 +139,7 @@ resource "aws_route_table" "private_rt" {
 }
 
 resource "aws_route_table_association" "private_rt_association" {
-  count          = length(var.private_subnet)
+  count          = length(var.private_subnet) > 0 ? length(var.private_subnet) : 0
   subnet_id      = aws_subnet.private_subnet[count.index].id
   route_table_id = aws_route_table.private_rt.id
 
